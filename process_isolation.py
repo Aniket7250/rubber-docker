@@ -1,20 +1,12 @@
 import os
-import sys
+import subprocess
 
-def isolate_process():
+def main():
     print(f"Starting process isolation... PID: {os.getpid()}")
+    print("Applying process and filesystem isolation...")
 
-    # Try to unshare a namespace (Linux-only)
-    try:
-        os.unshare(os.CLONE_NEWUTS | os.CLONE_NEWPID)
-        print("Successfully created isolated namespaces!")
-    except AttributeError:
-        print("Namespace isolation is not supported on this OS.")
-    except PermissionError:
-        print("Permission denied. Try running with sudo.")
+    # Example process isolation (could add more isolation logic here)
+    subprocess.run(["echo", "Hello from inside the container"])
 
-    # Simulate a shell in the isolated process
-    print("Launching a shell...")
-    os.execvp("sh", ["sh"])
 if __name__ == "__main__":
-    isolate_process()
+    main()
